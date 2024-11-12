@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 import os
 import base64
 
-load_dotenv()
+load_dotenv(override=True)
 
 scooter_id = os.getenv("scooter_id")
 api_token = os.getenv("api_token")
