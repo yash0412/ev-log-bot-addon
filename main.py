@@ -38,7 +38,7 @@ def update_ghseet_data(rides):
 
     # Find new IDs that are not in ids_from_sheet
     new_ids = sorted([id for id in ids_from_ride_data if id not in ids_from_sheet_set])
-    print("New IDs:", new_ids)
+    print("New IDs:", new_ids, " New IDs count:" ,len(new_ids))
 
     # Extract dictionary values for new IDs
     new_ride_data = sorted([ride for ride in rides if ride["id"] in new_ids], key=lambda x: x["id"])
@@ -50,7 +50,7 @@ def update_ghseet_data(rides):
 
     telegram_alert = True
 
-    for ride in new_ride_data:
+    for index,ride in enumerate(new_ride_data):
         data = json.dumps(ride)
         encoded_data = base64.b64encode(data.encode()).decode()
         params = {"rideData": encoded_data, "telegramAlert": str(telegram_alert).lower()}
@@ -58,7 +58,7 @@ def update_ghseet_data(rides):
         try:
             response = requests.post(webhook_url, json=params)
             response.raise_for_status()
-            print(f"Response from Google Apps Script for ride ID {ride['id']} {response.text}")
+            print(f"Response from Google Apps Script for ride ID {ride['id']} {response.text}, {index+1} of {len(new_ride_data)} completed")
         except requests.exceptions.RequestException as e:
             print(f"Request error for ride ID {ride['id']}")
 
