@@ -23,6 +23,7 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run script with environment variables
+        timeout-minutes: 10
         env:
           scooter_id: ${{ secrets.SCOOTER_ID }}
           api_token: ${{ secrets.API_TOKEN }}
