@@ -79,7 +79,7 @@ def update_ghseet_data(rides):
         try:
             response = requests.post(webhook_url, json=params)
             response.raise_for_status()
-            print(f"Response from Google Apps Script for ride ID {ride['id']} {response.text}, {index+1} of {len(new_ride_data)} completed")
+            print(f"Response from Google Apps Script for ride ID {ride['ride_id']} {response.text}, {index+1} of {len(new_ride_data)} completed")
         except requests.exceptions.RequestException as e:
             print(f"Request error for ride ID {ride['ride_id']}")
 
@@ -87,5 +87,5 @@ def update_ghseet_data(rides):
 scooter_display_id = get_scooter_details(scooter_id, api_token, 1, "desc")
 # get this scooter_display_id once and store it for future use
 # print(f"Scooter Display ID: {scooter_display_id}")
-ride_data = get_ride_details(scooter_display_id, api_token, 20, "desc")
+ride_data = get_ride_details(scooter_display_id, api_token, 50, "desc")
 update_ghseet_data(ride_data)
