@@ -68,7 +68,7 @@ def update_ghseet_data(rides):
     for index, ride in enumerate(new_ride_data):
         # Logic: only alert for last 5 if ride count is more than 10
         if ride_count > alert_threshold:
-            telegram_alert = i >= (ride_count - alert_tail)
+            telegram_alert = index >= (ride_count - alert_tail)
         else:
             telegram_alert = True
 
